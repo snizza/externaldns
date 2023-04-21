@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx
+  namespace: exdns
+  annotations:
+    #kubernetes.io/ingress.class: "ingress-nginx" # use the one that corresponds to your ingress controller.
+    external-dns.alpha.kubernetes.io/include: "true"
+spec:
+  ingressClassName: ingress-nginx
+  rules:
+    - host: server10.exchangeweb.net
+      http:
+        paths:
+          - backend:
+              service:
+                name: nginx
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
