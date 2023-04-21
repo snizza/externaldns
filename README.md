@@ -246,7 +246,7 @@ spec:
 
 ### 4. Issues.
 
-One issue I had is with Nginix-ingress Controller maintained by Nginx. Nginx-ingress has a different arguments for ExternalDNS. One of the arguments is needed to publish the endpoint of the ingress controller, so ExternalDNS can automatically use it. The endpoint is AWS load balancer. This is what they say in the documentation for ExternalDNS:
+One issue I had is with Nginix-ingress Controller maintained by Nginx. Nginx-ingress has a different arguments for ExternalDNS. One of the arguments is needed to publish the endpoint of the ingress controller, so ExternalDNS can automatically use it. The endpoint is AWS load balancer. This is from the documentation for ExternalDNS:
 "When you create the nginx-ingress-controller Deployment, you need to provide the --publish-service option to the /nginx-ingress-controller executable under args. Once this is deployed new Ingress resources will get the ELB's FQDN and ExternalDNS will use the same when creating records in Route 53."
 I tested with with args Nginx-ingress has on their official website and it didn't work. In the documentation of ExternalDNS they use ingress-nginx args. That's why I decided to create another one, which is Ingress-nginx maintained by Kubernetes. It also created separate service for it with the LB. I haven't tried to use same service for a different controller, not sure if its a good idea, need to research more. I also created separate IngressClass (ingress-nginx) for it, so I can choose which controller to use in ingress resource.
 
