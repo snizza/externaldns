@@ -1,5 +1,5 @@
 
-<h1 align="center"><b>Automated Creation of Route53 Records with External-DNS</b></h1>
+<h1 align="center"><b>Automated Creation of Route53 Records with ExternalDNS</b></h1>
 
 This is the description of how to implement automated creation of Route53 recods with ExternalDNS on AWS account from EKS cluster in another AWS account.
 
@@ -244,11 +244,11 @@ spec:
             pathType: Prefix
 ```
 
-### 4. Issues.
+### 5. Issues.
 
 One issue I had is with Nginix-ingress Controller maintained by Nginx. Nginx-ingress has a different arguments for ExternalDNS. One of the arguments is needed to publish the endpoint of the ingress controller, so ExternalDNS can automatically use it. The endpoint is AWS load balancer. This is from the documentation for ExternalDNS:
 "When you create the nginx-ingress-controller Deployment, you need to provide the --publish-service option to the /nginx-ingress-controller executable under args. Once this is deployed new Ingress resources will get the ELB's FQDN and ExternalDNS will use the same when creating records in Route 53."
-I tested with with args Nginx-ingress has on their official website and it didn't work. In the documentation of ExternalDNS they use ingress-nginx args. That's why I decided to create another one, which is Ingress-nginx maintained by Kubernetes. It also created separate service for it with the LB. I haven't tried to use same service for a different controller, not sure if its a good idea, need to research more. I also created separate IngressClass (ingress-nginx) for it, so I can choose which controller to use in ingress resource.
+I tested with args Nginx-ingress has on their official website and it didn't work. In the documentation of ExternalDNS they use ingress-nginx args. That's why I decided to create another one, which is Ingress-nginx maintained by Kubernetes. It also created separate service for it with the LB. I haven't tried to use same service for a different controller, not sure if its a good idea, need to research more. I also created separate IngressClass (ingress-nginx) for it, so I can choose which controller to use in ingress resource.
 
 ### Resource links.
 
